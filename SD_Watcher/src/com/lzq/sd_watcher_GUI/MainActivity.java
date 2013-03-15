@@ -2,7 +2,6 @@ package com.lzq.sd_watcher_GUI;
 
 import com.lzq.sd_watcher_Core.SD_ObserveService;
 import com.lzq.sd_watcher_GUI.R;
-
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.ActionBar;
@@ -19,76 +18,57 @@ import android.view.Menu;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
-	
 	private boolean mIsBound=false;
 	private SD_ObserveService sobs=null;
 	private ServiceConnection sc=new ServiceConnection()
-	{
-
+	{	
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			// TODO Auto-generated method stub
 			sobs=((SD_ObserveService.SD_Service_Binder)service).getService();
-		}
-
-		
+		}	
 		public void onServiceDisconnected(ComponentName name) {
 			// TODO Auto-generated method stub
-			sobs=null;
-			
+			sobs=null;	
 		}
 		
-	};
-	
-	
+	};	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        
+        setContentView(R.layout.activity_main);  
         /**
-         * Ìí¼Ó¶¯×÷Ìõ
+         * ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½
          */
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		// remove the activity title to make space for tabs
-		actionBar.setDisplayShowTitleEnabled(true);
-		
+		actionBar.setDisplayShowTitleEnabled(true);	
 		/**
-		 * ´´½¨¡¢Ìí¼ÓÑ¡Ïî¿¨
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½î¿¨
 		 */
-		Tab sd_view = actionBar.newTab().setText("×ÊÔ´¹ÜÀíÆ÷");
-		Tab config_view = actionBar.newTab().setText("ÏµÍ³ÉèÖÃ");
-		
+		Tab sd_view = actionBar.newTab().setText("ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		Tab config_view = actionBar.newTab().setText("ÏµÍ³ï¿½ï¿½ï¿½ï¿½");
 		/**
-		 * ´´½¨Ñ¡Ïî¿¨TabÖ®ºó£¬Ã¿Ò»¸öTab±ØÐë×¢²áÓÐÒ»¸ö¼àÌýÆ÷£¬ÓÃÀ´Íê³ÉÑ¡ÖÐTabÖ®ºó½øÐÐµÄ²Ù×÷¡£
-		 * ÕâÀï´´½¨ÁËÄÚ²¿ÀàSD_TabListenerÀ´Íê³ÉÑ¡ÖÐTabÖ®ºóµÄÒ»Ð©ÁÐ²Ù×÷
+		 * ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½î¿¨TabÖ®ï¿½ï¿½Ã¿Ò»ï¿½ï¿½Tabï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½TabÖ®ï¿½ï¿½ï¿½ï¿½ÐµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½
+		 * ï¿½ï¿½ï¿½ï´´ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½SD_TabListenerï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½TabÖ®ï¿½ï¿½ï¿½Ò»Ð©ï¿½Ð²ï¿½ï¿½ï¿½
 		 */
 		SD_TabListener sd_view_listener=new SD_TabListener(new FileScanFragment());
 		SD_TabListener config_view_listener=new SD_TabListener(new ConfigurationFragment());
 		/**
-		 * ¸øTab×¢²á¼àÌýÆ÷
+		 * ï¿½ï¿½Tab×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		 */
 		sd_view.setTabListener(sd_view_listener);
-		config_view.setTabListener(config_view_listener);
-		
+		config_view.setTabListener(config_view_listener);	
 		/**
-		 * ½«TabÌí¼Óµ½ActionBarÖÐ
+		 * ï¿½ï¿½Tabï¿½ï¿½Óµï¿½ActionBarï¿½ï¿½
 		 */
 		actionBar.addTab(sd_view);
-		actionBar.addTab(config_view);
-		
-
-
-		
-		
-		
+		actionBar.addTab(config_view);	
     }
 
     
 	/**
-	 * °ó¶¨ºóÌ¨¼àÌý·þÎñ
+	 * ï¿½ó¶¨ºï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void doBindService() {
 	    // Establish a connection with the service.  We use an explicit
@@ -121,7 +101,7 @@ public class MainActivity extends Activity {
         doUnbindService();
     }
     /**
-     * ÄÚ²¿Àà£¬ÎªÃ¿Ò»¸öTabÐèÒª×¢²áµÄ¼àÌýÆ÷
+     * ï¿½Ú²ï¿½ï¿½à£¬ÎªÃ¿Ò»ï¿½ï¿½Tabï¿½ï¿½Òª×¢ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
      * @author LZQ
      *
      */
